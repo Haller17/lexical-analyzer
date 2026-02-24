@@ -4,58 +4,45 @@ package Spring2026;
 
 This class is a lexical analyzer for the tokens defined by the grammar:
 
-<letter> -> a | b | ... | z | A | B | ... | Z 
-<digit> -> 0 | 1 | ... | 9 
-<ident> -> (<letter> | "_") {<letter> | <digit> | "_"} 
-<int> -> {<digit>}+ 
-<double> -> ( {<digit>}+ "." {<digit>}  |  "." {<digit>}+ ) 
-<expDouble> -> <double> (e|E) [-] {<digit>}+ 
-<plus> -> + 
-<minus> -> - 
-<times> -> * 
-<div> -> / 
-<assign> -> "=" 
-<end> -> ;
+IDENT		
+INT		
+FLOAT		
+ASSIGN		<-
+LPAREN		(
+RPAREN		)
+ADD		+
+SUB		-
+MUL		*
+DIV		/
+COMMA		,
+EQ		=
+NEQ		/=
+LT		<
+GT		>
+LE		<=
+GE		>=
+LBRACE		{
+RBRACE		}
 
-<letter> and <digit> are not token categories by themselves; rather, they are auxiliary categories to assist the definitions of the tokens <id>, <int>, <double>, <expDouble>.
 
 This class implements a DFA that will accept the above tokens.
 
 The DFA states are represented by the Enum type "State".
-The DFA has the following 10 final states represented by enum-type literals:
+The DFA has the following final key word states.
 
-state		token accepted
+Keywords (all uppercase): 
+DISPLAY, INPUT, MOD, RANDOM, NOT, AND, OR, IF, ELSE, REPEAT, TIMES, UNTIL, PROCEDURE, RETURN
 
-TIMES		*
-DIV			/
-ASSIGN		=
-PLUS		+
-MINUS		-
-INT			integer literal
-DOUBLE		double literal without exponentiation
-EXP_DOUBLE	double literal with exponentiation
-IDENT		identifier
-END			;
 
-The DFA also uses the following 4 non-final states:
-
-state			string recognized
+The DFA also uses the following 3 non-final states:
 
 START			the empty string
 DOT				.
-DOUBLE_E		an integer or double literal followed by "e" or "E"
-DOUBLE_E_MINUS	an integer or double literal followed by "e-" or "E-"
+UNDEFINED
+
 
 The function "driver" operates the DFA. 
 The array "nextState" returns the next state given the current state and the input character.
-
-To recognize a different token set, modify the following:
-
-  enum type "State" and function "isFinal"
-  size of array "nextState"
-  function "setNextState" 
-
-The functions "driver", "setLex", and "main" remain the same.
 
  **/
 
@@ -270,3 +257,4 @@ public class LexerExample extends IO
 		closeIO();
 	}
 } 
+
